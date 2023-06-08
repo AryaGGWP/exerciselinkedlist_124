@@ -20,18 +20,31 @@ public:
 	bool delNode();
 	void traverse();
 };
-void CircularLinkedList::addNode() { 
+
+void CircularLinkedList::addNode() {
 	int nim;
 	string na;
 	cout << "\nEnter the rollnumber of the student: ";
 	cin >> nim;
 	cout << "\nEnter the name of the student: ";
 	cin >> na;
-	Node* 
+	Node* newNode = new Node();
+	newNode->rollNumber = nim;
+	newNode->name = na;
 
-
-}
-
+		/*insert a node in the beginning of a double - linked list*/
+		if (LAST == NULL || nim <= LAST->rollNumber) {
+			if (LAST != NULL && nim == LAST->rollNumber) {
+				cout << "\nDuplicate number not allowed" << endl;
+				return;
+			}
+			newNode->next = LAST; //step 3
+			if (LAST != NULL)
+				LAST->rollNumber = newNode; //step 4
+			newNode->rollNumber = NULL; //step 5
+			LAST = newNode; //step 6
+			return;
+		}
 bool CircularLinkedList::search(int rollno, Node** Dio, Node** Arya) {
 	*Dio = LAST->next;
 	*Arya = LAST->next;
@@ -52,9 +65,20 @@ bool CircularLinkedList::search(int rollno, Node** Dio, Node** Arya) {
 bool CircularLinkedList::listEmpty() {
 	return LAST == NULL;
 }
-bool CircularLinkedList::delNode() { 
 
-}
+bool CircularLinkedList::delNode() {
+	Node* Dio, * Arya;
+	Dio = Arya = NULL;
+	if (search, &Dio, &Arya == false)
+		return false;
+	if (Arya->next != NULL)
+		Arya->next->next = Dio;
+	else
+		LAST = Arya->next;
+	delete Arya;
+	return true;
+};
+
 void CircularLinkedList::traverse() {
 	if (listEmpty()) {
 		cout << "\nList is empty\n";
